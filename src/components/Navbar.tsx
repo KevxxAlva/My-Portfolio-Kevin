@@ -52,11 +52,11 @@ export const Navbar = () => {
             e.preventDefault();
             scrollToSection("#hero");
           }}
-          className="text-2xl font-bold gradient-text"
+          className="flex items-center"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {"<Dev />"}
+          <img src="/favicon.ico" alt="Logo" className="h-16 w-16 md:h-20 md:w-20" />
         </motion.a>
 
         {/* Desktop Navigation */}
