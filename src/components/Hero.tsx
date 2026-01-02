@@ -82,8 +82,8 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold mb-4"
           >
-            <span className="text-foreground">Tu </span>
-            <span className="gradient-text neon-text">Nombre</span>
+            <span className="text-foreground">Kevin </span>
+            <span className="gradient-text neon-text">Alvarez</span>
           </motion.h1>
 
           {/* Typewriter Effect */}
@@ -130,7 +130,7 @@ export const Hero = () => {
 
             <Button variant="glass" size="lg" asChild>
               <a
-                href="https://github.com/tuusuario"
+                href="https://github.com/KevxxAlva"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -107,7 +107,7 @@ export const ContactSection = () => {
                   required
                   className="glass border-glass-border/50 focus:border-primary"
                 />
-              </div>
+              </div>  
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
@@ -120,7 +120,7 @@ export const ContactSection = () => {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  placeholder="tu@email.com"
+                  placeholder="kevin@ejemplo.com"
                   required
                   className="glass border-glass-border/50 focus:border-primary"
                 />
