@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, RotateCcw, ArrowLeft, LayoutDashboard } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Plus, ArrowLeft, LayoutDashboard, LogOut } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProjects } from "@/hooks/useProjects";
 import { ProjectForm } from "@/components/admin/ProjectForm";
 import { ProjectList } from "@/components/admin/ProjectList";
 import { useToast } from "@/hooks/use-toast";
 import type { Project } from "@/data/projects";
+import { supabase } from "@/integrations/supabase/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,12 +21,12 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const Admin = () => {
-  const { projects, isLoaded, addProject, updateProject, deleteProject, resetToDefault } = useProjects();
+  const { projects, isLoaded, addProject, updateProject, deleteProject } = useProjects();
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const [showResetDialog, setShowResetDialog] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSave = (data: Omit<Project, "id">) => {
     if (editingProject) {
@@ -53,10 +54,9 @@ const Admin = () => {
     }
   };
 
-  const handleReset = () => {
-    resetToDefault();
-    toast({ title: "Proyectos restaurados", description: "Se restauraron los proyectos por defecto." });
-    setShowResetDialog(false);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/login");
   };
 
   if (!isLoaded) {
@@ -101,11 +101,11 @@ const Admin = () => {
           <div className="flex gap-3">
             <Button
               variant="outline"
-              onClick={() => setShowResetDialog(true)}
+              onClick={handleLogout}
               className="gap-2"
             >
-              <RotateCcw className="h-4 w-4" />
-              Restaurar
+              <LogOut className="h-4 w-4" />
+              Cerrar Sesión
             </Button>
             <Button
               onClick={() => {
@@ -205,23 +205,7 @@ const Admin = () => {
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Reset Confirmation */}
-      <AlertDialog open={showResetDialog} onOpenChange={setShowResetDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>¿Restaurar proyectos?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esto eliminará todos tus cambios y restaurará los proyectos originales.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleReset}>
-              Restaurar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+
     </div>
   );
 };
