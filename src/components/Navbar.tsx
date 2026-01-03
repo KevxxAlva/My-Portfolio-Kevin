@@ -4,18 +4,18 @@ import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 // Custom Discord Icon
-const Discord = (props: React.SVGProps<SVGSVGElement>) => (
+const Discord = ({ size = 24, ...props }: { size?: number | string } & React.SVGProps<SVGSVGElement>) => (
   <svg
-    {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    {...props}
   >
     <circle cx="9" cy="12" r="1" />
     <circle cx="15" cy="12" r="1" />
