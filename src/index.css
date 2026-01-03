@@ -76,7 +76,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 0 84% 60%;
+    --primary: 0 100% 50%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96%;
@@ -93,10 +93,10 @@
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 84% 60%;
+    --ring: 0 100% 50%;
 
     /* Custom colors for light mode */
-    --neon-cyan: 0 84% 60%; /* Vibrant Red */
+    --neon-cyan: 0 100% 50%; /* Pure Red */
     --neon-purple: 280 80% 50%; /* Purple accent */
     --neon-pink: 340 80% 60%; /* Pink accent */
     --glass-bg: 0 0% 100%;

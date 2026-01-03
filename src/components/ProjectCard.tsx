@@ -23,7 +23,7 @@ export const ProjectCard = ({ project, index, onOpenModal }: ProjectCardProps) =
       {/* Featured Badge */}
       {project.destacado && (
         <div className="absolute top-3 right-3 z-10">
-          <div className="flex items-center gap-1 bg-red-500/10 text-red-600 dark:text-red-500 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md border border-red-500/20 shadow-sm">
+          <div className="flex items-center gap-1 bg-primary/10 text-primary dark:text-primary px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md border border-primary/20 shadow-sm">
             <Star className="w-3 h-3 fill-current" />
             Destacado
           </div>
