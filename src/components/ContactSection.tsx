@@ -70,10 +70,29 @@ const Discord = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+// Custom X (Twitter) Icon
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+  </svg>
+);
+
 const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/kevxLx", label: "Facebook" },
   { icon: Instagram, href: "https://www.instagram.com/kevin_444r/", label: "Instagram" },
-  { icon: Twitter, href: "https://twitter.com/kevinja1406", label: "Twitter" },
+  { icon: XIcon, href: "https://x.com/AlvarezKev29987", label: "X (Twitter)" },
   { icon: Discord, href: "https://discord.com/users/751454536031404062", label: "Discord" },
 ];
 
