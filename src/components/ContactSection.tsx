@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Send, Mail, MapPin, Phone, Facebook, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,8 @@ export const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
+      // Insert into Supabase
+      const { error: supabaseError } = await supabase
         .from('contact_messages')
         .insert([
           {
@@ -58,7 +60,32 @@ export const ContactSection = () => {
           }
         ]);
 
-      if (error) throw error;
+      if (supabaseError) {
+        console.error('Supabase error:', supabaseError);
+        // Continue to send email even if DB save fails, or maybe throw? 
+        // Let's decide to throw because proper error handling is good.
+        // throw supabaseError;
+        // Actually, let's log it but try to send email anyway so the user gets the message.
+      }
+
+      // Send Email via EmailJS
+      // REPLACE THESE VALUES WITH YOUR ACTUAL EMAILJS KEYS
+      // EmailJS configuration
+      const YOUR_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const YOUR_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const YOUR_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      await emailjs.send(
+        YOUR_SERVICE_ID,
+        YOUR_TEMPLATE_ID,
+        {
+          from_name: formData.nombre,
+          from_email: formData.email, 
+          message: formData.mensaje,
+          to_name: "Kevin", // Personalize this
+        },
+        YOUR_PUBLIC_KEY
+      );
 
       toast({
         title: "¡Mensaje enviado!",
