@@ -29,10 +29,33 @@ const contactInfo = [
   },
 ];
 
+// Custom Discord Icon since it's not in standard Lucide import
+const Discord = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="9" cy="12" r="1" />
+    <circle cx="15" cy="12" r="1" />
+    <path d="M7.5 7.5c3.5-1 5.5-1 9 0" />
+    <path d="M7 16.5c3.5 1 6.5 1 10 0" />
+    <path d="M2 8.5c0 4 1.5 9 5.5 11 4 2 9 2 13 0 1.5-3.5 1.5-8 1.5-11-2-1.5-4-2-6.5-1.5-2.5-.5-5-.5-7 0C6 6.5 4 7 2 8.5Z" />
+  </svg>
+);
+
 const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/kevxLx", label: "Facebook" },
   { icon: Instagram, href: "https://www.instagram.com/kevin_444r/", label: "Instagram" },
   { icon: Twitter, href: "https://twitter.com/kevinja1406", label: "Twitter" },
+  { icon: Discord, href: "https://discord.com/users/751454536031404062", label: "Discord" },
 ];
 
 export const ContactSection = () => {
