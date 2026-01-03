@@ -1,4 +1,4 @@
-# My Portfolio Showcase
+# My Portfolio
 
 Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habilidades y experiencia como desarrollador. Construido con las últimas tecnologías web para ofrecer una experiencia de usuario fluida, interactiva y visualmente atractiva.
 
