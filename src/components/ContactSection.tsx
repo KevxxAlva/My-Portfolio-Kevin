@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
@@ -48,6 +48,14 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Debug logging
+    console.log("Starting submission...");
+    console.log("Service ID (first 4):", import.meta.env.VITE_EMAILJS_SERVICE_ID?.substring(0, 4));
+    console.log("Template ID (first 4):", import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.substring(0, 4));
+    console.log("Public Key (first 4):", import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.substring(0, 4));
+    // Check for accidental quotes in loaded values
+    if (import.meta.env.VITE_EMAILJS_SERVICE_ID?.startsWith('"')) console.warn("Service ID has quotes!");
+
     try {
       // Insert into Supabase
       const { error: supabaseError } = await supabase
@@ -62,30 +70,31 @@ export const ContactSection = () => {
 
       if (supabaseError) {
         console.error('Supabase error:', supabaseError);
-        // Continue to send email even if DB save fails, or maybe throw? 
-        // Let's decide to throw because proper error handling is good.
-        // throw supabaseError;
-        // Actually, let's log it but try to send email anyway so the user gets the message.
+        // We log it but continue to email
       }
 
-      // Send Email via EmailJS
-      // REPLACE THESE VALUES WITH YOUR ACTUAL EMAILJS KEYS
       // EmailJS configuration
       const YOUR_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const YOUR_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const YOUR_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      await emailjs.send(
+      if (!YOUR_SERVICE_ID || !YOUR_TEMPLATE_ID || !YOUR_PUBLIC_KEY) {
+         throw new Error("Faltan las credenciales de EmailJS en el archivo .env");
+      }
+
+      const emailResponse = await emailjs.send(
         YOUR_SERVICE_ID,
         YOUR_TEMPLATE_ID,
         {
           from_name: formData.nombre,
           from_email: formData.email, 
           message: formData.mensaje,
-          to_name: "Kevin", // Personalize this
+          to_name: "Kevin",
         },
         YOUR_PUBLIC_KEY
       );
+      
+      console.log("EmailJS Response:", emailResponse);
 
       toast({
         title: "¡Mensaje enviado!",
@@ -94,10 +103,12 @@ export const ContactSection = () => {
 
       setFormData({ nombre: "", email: "", mensaje: "" });
     } catch (error: any) {
-      console.error('Error sending message:', error);
+      console.error('Error details:', error);
+      const errorMessage = error?.text || error?.message || "Error desconocido";
+      
       toast({
-        title: "Error",
-        description: "Hubo un problema al enviar el mensaje. Por favor, intenta de nuevo.",
+        title: "Error al enviar",
+        description: `Detalle: ${errorMessage}`,
         variant: "destructive"
       });
     } finally {
