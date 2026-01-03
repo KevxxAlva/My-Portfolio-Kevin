@@ -23,8 +23,8 @@ insert into auth.users (
   gen_random_uuid(),
   'authenticated',
   'authenticated',
-  'kevinja1406@gmail.com',  -- TU CORREO
-  crypt('Kevin1516$', gen_salt('bf')), -- TU CONTRASEÑA
+  'ejemplo@gmail.com',  -- TU CORREO
+  crypt('123456', gen_salt('bf')), -- TU CONTRASEÑA
   now(),
   '{"provider": "email", "providers": ["email"]}',
   '{}',
