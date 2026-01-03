@@ -20,9 +20,9 @@ const skills = [
 ];
 
 const stats = [
-  { value: "3+", label: "Años de experiencia" },
-  { value: "20+", label: "Proyectos completados" },
-  { value: "10+", label: "Clientes satisfechos" },
+  { value: "1+", label: "Años de experiencia" },
+  { value: "3+", label: "Proyectos completados" },
+  { value: "2+", label: "Clientes satisfechos" },
   { value: "∞", label: "Café consumido ☕" },
 ];
 
