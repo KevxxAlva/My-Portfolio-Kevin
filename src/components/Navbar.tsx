@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { name: "Inicio", href: "#hero" },
@@ -44,7 +45,7 @@ export const Navbar = () => {
         isScrolled ? "glass-strong py-3" : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
         {/* Logo */}
         <motion.a
           href="#hero"
@@ -56,7 +57,7 @@ export const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img src="/favicon.ico" alt="Logo" className="h-16 w-16 md:h-18 md:w-18" />
+          <img src="/favicon.ico" alt="Logo" className="h-12 w-12 sm:h-16 sm:w-16 md:h-18 md:w-18" />
         </motion.a>
 
         {/* Desktop Navigation */}
@@ -80,6 +81,7 @@ export const Navbar = () => {
 
         {/* Social Links - Desktop */}
         <div className="hidden md:flex items-center gap-4">
+          <ThemeToggle />
           {socialLinks.map((link) => (
             <motion.a
               key={link.label}
@@ -97,9 +99,9 @@ export const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden z-50">
+        <div className="md:hidden z-50 mr-6">
           <motion.button
-            className="text-foreground p-2"
+            className="text-foreground p-2 hover:bg-primary/10 rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.9 }}
             aria-label="Toggle menu"
@@ -133,19 +135,22 @@ export const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <div className="flex gap-4 pt-4 border-t border-border">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label={link.label}
-              >
-                <link.icon size={20} />
-              </a>
-            ))}
+          <div className="flex items-center justify-between pt-4 border-t border-border">
+            <ThemeToggle />
+            <div className="flex gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label={link.label}
+                >
+                  <link.icon size={20} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </motion.div>

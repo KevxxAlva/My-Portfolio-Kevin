@@ -65,6 +65,65 @@
     --shadow-glow: 0 0 60px hsl(var(--neon-cyan) / 0.2);
     --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4);
   }
+
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 84% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 84% 60%;
+
+    /* Custom colors for light mode */
+    --neon-cyan: 0 84% 60%; /* Vibrant Red */
+    --neon-purple: 280 80% 50%; /* Purple accent */
+    --neon-pink: 340 80% 60%; /* Pink accent */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 0 0% 90%;
+
+    /* Gradients */
+    --gradient-neon: linear-gradient(
+      135deg,
+      hsl(var(--neon-cyan)),
+      hsl(var(--neon-purple))
+    );
+    --gradient-glow: linear-gradient(
+      180deg,
+      hsl(var(--neon-cyan) / 0.1),
+      transparent
+    );
+    --gradient-hero: radial-gradient(
+      ellipse at top,
+      hsl(var(--neon-cyan) / 0.08) 0%,
+      transparent 50%
+    );
+
+    /* Shadows for light mode */
+    --shadow-neon: 0 0 30px hsl(var(--neon-cyan) / 0.2);
+    --shadow-glow: 0 0 60px hsl(var(--neon-cyan) / 0.15);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.1);
+  }
 }
 
 @layer base {
@@ -74,11 +133,13 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: "Space Grotesk", sans-serif;
+    overflow-x: hidden;
   }
 
   code,

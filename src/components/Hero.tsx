@@ -63,14 +63,14 @@ export const Hero = () => {
       <div className="absolute top-1/4 -left-32 w-64 h-64 bg-neon-cyan/20 rounded-full blur-[100px]" />
       <div className="absolute bottom-1/4 -right-32 w-64 h-64 bg-neon-purple/20 rounded-full blur-[100px]" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Greeting */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-primary font-mono mb-4"
+            className="text-primary font-mono mb-4 px-2"
           >
             ¡Hola! 👋 Mi nombre es
           </motion.p>
@@ -80,7 +80,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-4"
+            className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 px-2 break-words"
           >
             <span className="text-foreground">Kevin </span>
             <span className="gradient-text neon-text">Alvarez</span>
@@ -91,9 +91,9 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="h-12 md:h-16 flex items-center justify-center mb-6"
+            className="h-12 md:h-16 flex items-center justify-center mb-6 px-2"
           >
-            <span className="text-2xl md:text-4xl text-muted-foreground font-light">
+            <span className="text-xl sm:text-2xl md:text-4xl text-muted-foreground font-light">
               {displayText}
             </span>
             <span className="w-1 h-8 md:h-10 bg-primary ml-1 animate-pulse" />
@@ -104,7 +104,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 px-4"
           >
             Desarrollo experiencias digitales excepcionales. Especializado en
             crear aplicaciones web modernas, escalables y con interfaces que
