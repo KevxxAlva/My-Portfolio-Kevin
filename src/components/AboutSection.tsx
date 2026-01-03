@@ -10,7 +10,7 @@ const skills = [
   {
     category: "Backend",
     icon: Database,
-    items: ["Node.js", "PostgreSQL", "MySQL"],
+    items: ["Node.js", "PostgreSQL", "MySQL", "Supabase"],
   },
   {
     category: "Herramientas",
