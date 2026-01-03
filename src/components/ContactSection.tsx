@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { Send, Mail, MapPin, Phone, Facebook, Instagram, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,16 +47,35 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            nombre: formData.nombre,
+            email: formData.email,
+            mensaje: formData.mensaje,
+          }
+        ]);
 
-    toast({
-      title: "¡Mensaje enviado!",
-      description: "Gracias por contactarme. Te responderé pronto.",
-    });
+      if (error) throw error;
 
-    setFormData({ nombre: "", email: "", mensaje: "" });
-    setIsSubmitting(false);
+      toast({
+        title: "¡Mensaje enviado!",
+        description: "Gracias por contactarme. Te responderé pronto.",
+      });
+
+      setFormData({ nombre: "", email: "", mensaje: "" });
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al enviar el mensaje. Por favor, intenta de nuevo.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
