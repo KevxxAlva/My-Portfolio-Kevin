@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# My Portfolio Showcase
 
-## Project info
+Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habilidades y experiencia como desarrollador. Construido con las últimas tecnologías web para ofrecer una experiencia de usuario fluida, interactiva y visualmente atractiva.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Características
 
-## How can I edit this code?
+- **Diseño Responsivo**: Adaptado perfectamente a dispositivos móviles, tablets y escritorio.
+- **Modo Oscuro/Claro**: Soporte nativo para cambio de tema utilizando `next-themes`.
+- **Animaciones Suaves**: Transiciones y efectos visuales impulsados por `framer-motion`.
+- **Gestión de Proyectos**: Integración con Supabase para cargar y gestionar proyectos dinámicamente.
+- **Formulario de Contacto**: Funcionalidad de correo electrónico integrada mediante EmailJS.
+- **Componentes de UI Modernos**: Utilizando la biblioteca Shadcn/UI para una estética limpia y consistente.
 
-There are several ways of editing your application.
+## 🛠️ Tecnologías Utilizadas
 
-**Use Lovable**
+### Frontend
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **[React](https://react.dev/)**: Biblioteca principal para la construcción de interfaces de usuario.
+- **[TypeScript](https://www.typescriptlang.org/)**: Superset de JavaScript que añade tipado estático.
+- **[Vite](https://vitejs.dev/)**: Herramienta de construcción rápida y servidor de desarrollo.
 
-Changes made via Lovable will be committed automatically to this repo.
+### Estilos & UI
 
-**Use your preferred IDE**
+- **[Tailwind CSS](https://tailwindcss.com/)**: Framework CSS de utilidad primero.
+- **[Shadcn/UI](https://ui.shadcn.com/)**: Colección de componentes reutilizables.
+- **[Lucide React](https://lucide.dev/)**: Iconos vectoriales ligeros y personalizables.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Backend & Servicios
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **[Supabase](https://supabase.com/)**: Backend as a Service (BaaS) para base de datos y autenticación.
+- **[EmailJS](https://www.emailjs.com/)**: Servicio para envío de correos electrónicos directamente desde el cliente.
 
-Follow these steps:
+### Otras Herramientas
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **React Router DOM**: Manejo de rutas y navegación.
+- **React Hook Form & Zod**: Manejo y validación de formularios.
+- **TanStack Query**: Gestión del estado del servidor y fetching de datos.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🏁 Comenzando
 
-# Step 3: Install the necessary dependencies.
-npm i
+Sigue estos pasos para configurar el proyecto localmente.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd my-portfolio-showcase
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables con tus propias credenciales:
+
+```env
+# Configuración de Supabase
+VITE_SUPABASE_URL=tu_url_de_supabase
+VITE_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
+
+# Configuración de EmailJS
+VITE_EMAILJS_SERVICE_ID=tu_service_id
+VITE_EMAILJS_TEMPLATE_ID=tu_template_id
+VITE_EMAILJS_PUBLIC_KEY=tu_public_key
+```
+
+### 4. Ejecutar el servidor de desarrollo
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+La aplicación estará disponible en `http://localhost:8080` (o el puerto que Vite asigne).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 📜 Scripts Disponibles
 
-**Use GitHub Codespaces**
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Construye la aplicación para producción.
+- `npm run preview`: Vista previa local de la build de producción.
+- `npm run lint`: Ejecuta el linter para encontrar errores en el código.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📂 Estructura del Proyecto
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Componentes reutilizables (UI, Secciones, etc.)
+├── hooks/          # Hooks personalizados
+├── integrations/   # Configuraciones de servicios externos (Supabase, etc.)
+├── pages/          # Vistas principales de la aplicación
+├── lib/            # Utilidades y configuraciones de bibliotecas
+└── index.css       # Estilos globales y configuración de Tailwind
+```
 
-This project is built with:
+## 📄 Licencia
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Este proyecto es de uso personal y demostrativo.
