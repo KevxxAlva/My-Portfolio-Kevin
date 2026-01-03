@@ -53,7 +53,14 @@ export const Navbar = () => {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
     setIsMobileMenuOpen(false);
   };
@@ -150,9 +157,23 @@ export const Navbar = () => {
               href={link.href}
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection(link.href);
+                setIsMobileMenuOpen(false);
+                // Wait for the menu closing animation to finish (300ms) before scrolling
+                setTimeout(() => {
+                  const element = document.querySelector(link.href);
+                  if (element) {
+                    const headerOffset = 80;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    });
+                  }
+                }, 300);
               }}
-              className="text-muted-foreground hover:text-primary transition-colors py-2"
+              className="block w-full text-left text-muted-foreground hover:text-primary transition-colors py-2"
             >
               {link.name}
             </a>

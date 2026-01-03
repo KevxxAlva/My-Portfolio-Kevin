@@ -71,7 +71,7 @@ export const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden scroll-mt-28"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-grid opacity-30" />

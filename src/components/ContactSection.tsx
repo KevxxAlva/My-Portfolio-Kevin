@@ -140,7 +140,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contacto" className="py-24 relative overflow-hidden">
+    <section id="contacto" className="py-24 relative overflow-hidden scroll-mt-28">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-purple/5 rounded-full blur-[150px]" />

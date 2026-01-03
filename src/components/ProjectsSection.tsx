@@ -22,7 +22,7 @@ export const ProjectsSection = () => {
   if (!isLoaded) return null;
 
   return (
-    <section id="proyectos" className="py-24 relative">
+    <section id="proyectos" className="py-24 relative scroll-mt-28">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-neon-purple/10 rounded-full blur-[150px]" />

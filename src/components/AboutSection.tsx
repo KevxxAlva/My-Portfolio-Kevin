@@ -28,7 +28,7 @@ const stats = [
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
+    <section id="about" className="py-24 relative overflow-hidden scroll-mt-28">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-neon-cyan/10 rounded-full blur-[150px]" />
