@@ -15,6 +15,7 @@ const translations: Translations = {
   nav_projects: { es: "Proyectos", en: "Projects" },
   nav_about: { es: "Sobre mí", en: "About" },
   nav_services: { es: "Servicios", en: "Services" },
+  nav_testimonials: { es: "Testimonios", en: "Testimonials" },
   nav_contact: { es: "Contacto", en: "Contact" },
   
   // Hero
@@ -43,6 +44,16 @@ const translations: Translations = {
   service_app_desc: { es: "Aplicaciones complejas y escalables con funcionalidades avanzadas y gestión de datos.", en: "Complex and scalable applications with advanced features and data management." },
   service_seo_title: { es: "Optimización & SEO", en: "Optimization & SEO" },
   service_seo_desc: { es: "Mejora de rendimiento, velocidad de carga y visibilidad en motores de búsqueda.", en: "Performance improvement, load speed, and search engine visibility." },
+
+  // Testimonials
+  testimonials_title: { es: "Lo que dicen de mí", en: "What they say about me" },
+  testimonials_subtitle: { es: "La confianza de mis clientes y colaboradores es mi mejor carta de presentación.", en: "The trust of my clients and collaborators is my best introduction." },
+  testimonial_1_text: { es: "Kevin es un desarrollador excepcional. Entendió perfectamente nuestra visión y la llevó al siguiente nivel con su creatividad técnica.", en: "Kevin is an exceptional developer. He perfectly understood our vision and took it to the next level with his technical creativity." },
+  testimonial_1_role: { es: "CEO, TechStart", en: "CEO, TechStart" },
+  testimonial_2_text: { es: "Su atención al detalle y capacidad para resolver problemas complejos es impresionante. ¡Totalmente recomendado!", en: "His attention to detail and ability to solve complex problems is impressive. Highly recommended!" },
+  testimonial_2_role: { es: "Product Manager", en: "Product Manager" },
+  testimonial_3_text: { es: "Trabajar con Kevin fue una experiencia fluida y profesional. Entregó el proyecto a tiempo y superó nuestras expectativas.", en: "Working with Kevin was a smooth and professional experience. He delivered the project on time and exceeded our expectations." },
+  testimonial_3_role: { es: "Diseñadora UX/UI", en: "UX/UI Designer" },
 
   // About
   about_title: { es: "Sobre Mí", en: "About Me" },

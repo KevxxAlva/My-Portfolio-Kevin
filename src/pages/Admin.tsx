@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, ArrowLeft, LayoutDashboard, LogOut } from "lucide-react";
+import { Plus, ArrowLeft, LayoutDashboard, LogOut, MessageSquare } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useProjects } from "@/hooks/useProjects";
+import { useTestimonials } from "@/hooks/useTestimonials";
 import { ProjectForm } from "@/components/admin/ProjectForm";
 import { ProjectList } from "@/components/admin/ProjectList";
+import { TestimonialForm } from "@/components/admin/TestimonialForm";
+import { TestimonialList } from "@/components/admin/TestimonialList";
 import { useToast } from "@/hooks/use-toast";
 import type { Project } from "@/data/projects";
+import type { Testimonial } from "@/data/testimonials";
 import { supabase } from "@/integrations/supabase/client";
 import {
   AlertDialog,
@@ -20,15 +24,29 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+type AdminTab = "projects" | "testimonials";
+
 const Admin = () => {
-  const { projects, isLoaded, addProject, updateProject, deleteProject } = useProjects();
-  const [showForm, setShowForm] = useState(false);
+  const { projects, isLoaded: projectsLoaded, addProject, updateProject, deleteProject } = useProjects();
+  const { testimonials, isLoaded: testimonialsLoaded, addTestimonial, updateTestimonial, deleteTestimonial } = useTestimonials();
+  
+  const [activeTab, setActiveTab] = useState<AdminTab>("projects");
+  
+  // Project State
+  const [showProjectForm, setShowProjectForm] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [deleteProjectId, setDeleteProjectId] = useState<string | null>(null);
+
+  // Testimonial State
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
+  const [deleteTestimonialId, setDeleteTestimonialId] = useState<string | null>(null);
+
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const handleSave = (data: Omit<Project, "id">) => {
+  // --- Projects Handlers ---
+  const handleSaveProject = (data: Omit<Project, "id">) => {
     if (editingProject) {
       updateProject(editingProject.id, data);
       toast({ title: "Proyecto actualizado", description: `"${data.titulo}" se actualizó correctamente.` });
@@ -36,21 +54,37 @@ const Admin = () => {
       addProject(data);
       toast({ title: "Proyecto creado", description: `"${data.titulo}" se agregó al portafolio.` });
     }
-    setShowForm(false);
+    setShowProjectForm(false);
     setEditingProject(null);
   };
 
-  const handleEdit = (project: Project) => {
-    setEditingProject(project);
-    setShowForm(true);
+  const handleDeleteProject = () => {
+    if (deleteProjectId) {
+      const project = projects.find((p) => p.id === deleteProjectId);
+      deleteProject(deleteProjectId);
+      toast({ title: "Proyecto eliminado", description: `"${project?.titulo}" fue eliminado.`, variant: "destructive" });
+      setDeleteProjectId(null);
+    }
   };
 
-  const handleDelete = () => {
-    if (deleteId) {
-      const project = projects.find((p) => p.id === deleteId);
-      deleteProject(deleteId);
-      toast({ title: "Proyecto eliminado", description: `"${project?.titulo}" fue eliminado.`, variant: "destructive" });
-      setDeleteId(null);
+  // --- Testimonials Handlers ---
+  const handleSaveTestimonial = (data: Omit<Testimonial, "id">) => {
+    if (editingTestimonial) {
+      updateTestimonial(editingTestimonial.id, data);
+      toast({ title: "Testimonio actualizado", description: "El testimonio se actualizó correctamente." });
+    } else {
+      addTestimonial(data);
+      toast({ title: "Testimonio creado", description: "El testimonio se agregó correctamente." });
+    }
+    setShowTestimonialForm(false);
+    setEditingTestimonial(null);
+  };
+
+  const handleDeleteTestimonial = () => {
+    if (deleteTestimonialId) {
+      deleteTestimonial(deleteTestimonialId);
+      toast({ title: "Testimonio eliminado", description: "El testimonio fue eliminado.", variant: "destructive" });
+      setDeleteTestimonialId(null);
     }
   };
 
@@ -59,7 +93,7 @@ const Admin = () => {
     navigate("/login");
   };
 
-  if (!isLoaded) {
+  if (!projectsLoaded || !testimonialsLoaded) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-pulse text-muted-foreground">Cargando...</div>
@@ -95,7 +129,7 @@ const Admin = () => {
                 </h1>
               </div>
               <p className="text-muted-foreground text-sm mt-1">
-                Gestiona tus proyectos del portafolio
+                Gestiona tu contenido
               </p>
             </div>
           </div>
@@ -111,103 +145,174 @@ const Admin = () => {
             </Button>
             <Button
               onClick={() => {
-                setEditingProject(null);
-                setShowForm(true);
+                if (activeTab === "projects") {
+                  setEditingProject(null);
+                  setShowProjectForm(true);
+                } else {
+                  setEditingTestimonial(null);
+                  setShowTestimonialForm(true);
+                }
               }}
               className="gap-2 flex-1 md:flex-none"
             >
               <Plus className="h-4 w-4" />
-              Nuevo proyecto
+              {activeTab === "projects" ? "Nuevo proyecto" : "Nuevo testimonio"}
             </Button>
           </div>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
-        >
-          <div className="glass rounded-xl p-4 text-center hover-lift">
-            <p className="text-2xl md:text-3xl font-bold text-foreground">{projects.length}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Total proyectos</p>
-          </div>
-          <div className="glass rounded-xl p-4 text-center hover-lift">
-            <p className="text-2xl md:text-3xl font-bold text-primary">{projects.filter((p) => p.destacado).length}</p>
-            <p className="text-xs md:text-sm text-muted-foreground">Destacados</p>
-          </div>
-          <div className="glass rounded-xl p-4 text-center hover-lift">
-            <p className="text-2xl md:text-3xl font-bold text-foreground">
-              {new Set(projects.flatMap((p) => p.tags)).size}
-            </p>
-            <p className="text-xs md:text-sm text-muted-foreground">Tags únicos</p>
-          </div>
-          <div className="glass rounded-xl p-4 text-center hover-lift">
-            <p className="text-2xl md:text-3xl font-bold text-foreground">
-              {projects.filter((p) => p.demoLink).length}
-            </p>
-            <p className="text-xs md:text-sm text-muted-foreground">Con demo</p>
-          </div>
-        </motion.div>
+        {/* Tab Switcher */}
+        <div className="flex gap-4 mb-8 border-b border-white/10 pb-4">
+           <button
+             onClick={() => setActiveTab("projects")}
+             className={`pb-2 px-4 transition-colors relative ${activeTab === "projects" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+           >
+             Proyectos
+             {activeTab === "projects" && <motion.div layoutId="tab" className="absolute bottom-[-17px] left-0 right-0 h-0.5 bg-primary" />}
+           </button>
+           <button
+             onClick={() => setActiveTab("testimonials")}
+             className={`pb-2 px-4 transition-colors relative ${activeTab === "testimonials" ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+           >
+             Testimonios
+             {activeTab === "testimonials" && <motion.div layoutId="tab" className="absolute bottom-[-17px] left-0 right-0 h-0.5 bg-primary" />}
+           </button>
+        </div>
 
-        {/* Form */}
-        <AnimatePresence mode="wait">
-          {showForm && (
+        {/* --- PROJECTS CONTENT --- */}
+        {activeTab === "projects" && (
+          <>
+            {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mb-8 overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
             >
-              <ProjectForm
-                project={editingProject}
-                onSave={handleSave}
-                onCancel={() => {
-                  setShowForm(false);
-                  setEditingProject(null);
-                }}
+              <div className="glass rounded-xl p-4 text-center hover-lift">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{projects.length}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Total proyectos</p>
+              </div>
+              <div className="glass rounded-xl p-4 text-center hover-lift">
+                <p className="text-2xl md:text-3xl font-bold text-primary">{projects.filter((p) => p.destacado).length}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Destacados</p>
+              </div>
+            </motion.div>
+
+            {/* Form */}
+            <AnimatePresence mode="wait">
+              {showProjectForm && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mb-8 overflow-hidden"
+                >
+                  <ProjectForm
+                    project={editingProject}
+                    onSave={handleSaveProject}
+                    onCancel={() => {
+                      setShowProjectForm(false);
+                      setEditingProject(null);
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* List */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+               <ProjectList
+                projects={projects}
+                onEdit={(p) => { setEditingProject(p); setShowProjectForm(true); }}
+                onDelete={(id) => setDeleteProjectId(id)}
               />
             </motion.div>
-          )}
-        </AnimatePresence>
+          </>
+        )}
 
-        {/* Project List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Proyectos ({projects.length})
-          </h2>
-          <ProjectList
-            projects={projects}
-            onEdit={handleEdit}
-            onDelete={(id) => setDeleteId(id)}
-          />
-        </motion.div>
+        {/* --- TESTIMONIALS CONTENT --- */}
+        {activeTab === "testimonials" && (
+          <>
+             {/* Stats */}
+             <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="grid grid-cols-2 gap-4 mb-8 max-w-md"
+            >
+              <div className="glass rounded-xl p-4 text-center hover-lift">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">{testimonials.length}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">Total testimonios</p>
+              </div>
+             </motion.div>
+
+            {/* Form */}
+            <AnimatePresence mode="wait">
+              {showTestimonialForm && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mb-8 overflow-hidden"
+                >
+                  <TestimonialForm
+                    testimonial={editingTestimonial}
+                    onSave={handleSaveTestimonial}
+                    onCancel={() => {
+                      setShowTestimonialForm(false);
+                      setEditingTestimonial(null);
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* List */}
+             <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <TestimonialList
+                testimonials={testimonials}
+                onEdit={(t) => { setEditingTestimonial(t); setShowTestimonialForm(true); }}
+                onDelete={(id) => setDeleteTestimonialId(id)}
+              />
+            </motion.div>
+          </>
+        )}
       </div>
 
-      {/* Delete Confirmation */}
-      <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
+      {/* Delete Confirmation (Shared) */}
+      <AlertDialog 
+        open={!!deleteProjectId || !!deleteTestimonialId} 
+        onOpenChange={() => {
+          setDeleteProjectId(null);
+          setDeleteTestimonialId(null);
+        }}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Eliminar proyecto?</AlertDialogTitle>
+            <AlertDialogTitle>¿Eliminar elemento?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción no se puede deshacer. El proyecto será eliminado permanentemente.
+              Esta acción no se puede deshacer. Será eliminado permanentemente.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDelete} className="bg-destructive hover:bg-destructive/90">
+            <AlertDialogAction 
+              onClick={() => {
+                if (deleteProjectId) handleDeleteProject();
+                if (deleteTestimonialId) handleDeleteTestimonial();
+              }} 
+              className="bg-destructive hover:bg-destructive/90"
+            >
               Eliminar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-
     </div>
   );
 };
