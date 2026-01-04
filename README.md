@@ -4,7 +4,6 @@ Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habili
 
 <img width="1349" height="638" alt="image" src="https://github.com/user-attachments/assets/b9537606-8cd1-42a1-ab55-98226c849d2e" />
 
-
 ## 🚀 Características
 
 - **Panel de Administración Completo**: Interfaz segura (`/admin`) para gestionar Proyectos, Testimonios y Mensajes de contacto.
@@ -16,6 +15,7 @@ Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habili
 - **Animaciones Avanzadas**: Efectos Parallax, scroll suave y transiciones fluidas con `framer-motion`.
 - **Gestión de Contenido**: Integración con Supabase para CRUD de proyectos y testimonios.
 - **Formulario de Contacto**: Funcionalidad de correo electrónico (EmailJS) + respaldo en base de datos.
+- **Analítica Web**: Integración completa con Google Analytics 4 para seguimiento de tráfico.
 - **Componentes Modernos**: UI limpia y consistente con Shadcn/UI.
 
 ## 🛠️ Tecnologías Utilizadas
@@ -75,6 +75,9 @@ VITE_SUPABASE_ANON_KEY=tu_clave_anonima_de_supabase
 VITE_EMAILJS_SERVICE_ID=tu_service_id
 VITE_EMAILJS_TEMPLATE_ID=tu_template_id
 VITE_EMAILJS_PUBLIC_KEY=tu_public_key
+
+# Analítica (Opcional)
+VITE_GA_ID=G-XXXXXXXXXX
 ```
 
 ### 4. Ejecutar el servidor de desarrollo
@@ -130,4 +133,4 @@ Este proyecto está optimizado para ser desplegado en **Vercel** o **Netlify**.
 
 ## 📄 Licencia
 
-Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE). Siéntete libre de usarlo como inspiración o plantilla para tu propio portafolio.
+Este proyecto es de código abierto y está disponible bajo la **Licencia Apache 2.0**. Consulta el archivo [LICENSE](LICENSE) para más detalles. Siéntete libre de usar este código como inspiración o base para tus propios proyectos.
