@@ -11,6 +11,8 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import { RequireAuth } from "./components/RequireAuth";
 
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -18,6 +20,7 @@ const App = () => (
     <LanguageProvider>
       <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <GoogleAnalytics />
         <Toaster />
         <Sonner />
         <BrowserRouter>
