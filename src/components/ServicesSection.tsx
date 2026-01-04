@@ -1,6 +1,30 @@
 import { motion } from "framer-motion";
 import { Monitor, Server, Rocket } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ParallaxElement } from "@/components/ui/ParallaxElement";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 100,
+    },
+  },
+};
 
 export const ServicesSection = () => {
   const { t } = useLanguage();
@@ -35,31 +59,31 @@ export const ServicesSection = () => {
       <div className="absolute inset-0 bg-grid opacity-20" />
       
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <p className="text-primary font-mono mb-4">{`<${t("nav_services")} />`}</p>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-foreground">{t("services_title").split(" ")[0]} </span>
-            <span className="gradient-text">{t("services_title").split(" ").slice(1).join(" ")}</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            {t("services_subtitle")}
-          </p>
-        </motion.div>
+        <ParallaxElement offset={30}>
+          <div className="text-center mb-16">
+            <p className="text-primary font-mono mb-4">{`<${t("nav_services")} />`}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <span className="text-foreground">{t("services_title").split(" ")[0]} </span>
+              <span className="gradient-text">{t("services_title").split(" ").slice(1).join(" ")}</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {t("services_subtitle")}
+            </p>
+          </div>
+        </ParallaxElement>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
+              variants={itemVariants}
+              whileHover={{ y: -10, transition: { duration: 0.2 } }}
               className="glass p-8 rounded-2xl hover:bg-white/5 transition-colors group"
             >
               <div className={`w-14 h-14 rounded-xl ${service.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
@@ -71,7 +95,7 @@ export const ServicesSection = () => {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
