@@ -4,15 +4,18 @@ Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habili
 
 <img width="1349" height="638" alt="image" src="https://github.com/user-attachments/assets/9e195451-57d8-475e-9d4e-ec2265af45b2" />
 
-
 ## 🚀 Características
 
+- **Panel de Administración Completo**: Interfaz segura (`/admin`) para gestionar Proyectos, Testimonios y Mensajes de contacto.
+- **Multilenguaje (i18n)**: Soporte completo para Español e Inglés con cambio dinámico.
+- **Sección de Testimonios**: Visualización dinámica de reseñas con efectos Parallax, gestionable desde el admin.
+- **Bandeja de Mensajes**: Visualización y gestión de mensajes de contacto recibidos directamente en la plataforma.
 - **Diseño Responsivo**: Adaptado perfectamente a dispositivos móviles, tablets y escritorio.
-- **Modo Oscuro/Claro**: Soporte nativo para cambio de tema utilizando `next-themes`.
-- **Animaciones Suaves**: Transiciones y efectos visuales impulsados por `framer-motion`.
-- **Gestión de Proyectos**: Integración con Supabase para cargar y gestionar proyectos dinámicamente.
-- **Formulario de Contacto**: Funcionalidad de correo electrónico integrada mediante EmailJS.
-- **Componentes de UI Modernos**: Utilizando la biblioteca Shadcn/UI para una estética limpia y consistente.
+- **Modo Oscuro/Claro**: Soporte nativo para cambio de tema.
+- **Animaciones Avanzadas**: Efectos Parallax, scroll suave y transiciones fluidas con `framer-motion`.
+- **Gestión de Contenido**: Integración con Supabase para CRUD de proyectos y testimonios.
+- **Formulario de Contacto**: Funcionalidad de correo electrónico (EmailJS) + respaldo en base de datos.
+- **Componentes Modernos**: UI limpia y consistente con Shadcn/UI.
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -21,6 +24,7 @@ Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habili
 - **[React](https://react.dev/)**: Biblioteca principal para la construcción de interfaces de usuario.
 - **[TypeScript](https://www.typescriptlang.org/)**: Superset de JavaScript que añade tipado estático.
 - **[Vite](https://vitejs.dev/)**: Herramienta de construcción rápida y servidor de desarrollo.
+- **[Framer Motion](https://www.framer.com/motion/)**: Biblioteca potente para animaciones y gestos.
 
 ### Estilos & UI
 
@@ -30,14 +34,15 @@ Un portafolio moderno y profesional diseñado para mostrar mis proyectos, habili
 
 ### Backend & Servicios
 
-- **[Supabase](https://supabase.com/)**: Backend as a Service (BaaS) para base de datos y autenticación.
-- **[EmailJS](https://www.emailjs.com/)**: Servicio para envío de correos electrónicos directamente desde el cliente.
+- **[Supabase](https://supabase.com/)**: Backend as a Service (BaaS) para base de datos (PostgreSQL), autenticación y almacenamiento.
+- **[EmailJS](https://www.emailjs.com/)**: Servicio para envío de correos electrónicos desde el cliente.
 
 ### Otras Herramientas
 
-- **React Router DOM**: Manejo de rutas y navegación.
-- **React Hook Form & Zod**: Manejo y validación de formularios.
-- **TanStack Query**: Gestión del estado del servidor y fetching de datos.
+- **Context API**: Manejo de estado global (Idiomas, Autenticación).
+- **React Router DOM**: Manejo de rutas y navegación protegida.
+- **Date-fns**: Manipulación y formateo de fechas.
+- **React Hook Form**: Manejo eficiente de formularios.
 
 ## 🏁 Comenzando
 
@@ -90,14 +95,38 @@ La aplicación estará disponible en `http://localhost:8080` (o el puerto que Vi
 
 ```
 src/
-├── components/     # Componentes reutilizables (UI, Secciones, etc.)
-├── hooks/          # Hooks personalizados
-├── integrations/   # Configuraciones de servicios externos (Supabase, etc.)
-├── pages/          # Vistas principales de la aplicación
-├── lib/            # Utilidades y configuraciones de bibliotecas
-└── index.css       # Estilos globales y configuración de Tailwind
+├── components/      # Componentes de UI y Secciones
+│   ├── admin/       # Componentes específicos del panel de administración
+│   ├── ui/          # Componentes base (Botones, Inputs, Cards)
+│   └── ...          # Secciones (Hero, Proyectos, Contacto, etc.)
+├── contexts/        # Contextos de React (Lenguaje, Temas)
+├── data/            # Tipos de datos y definiciones TypeScript
+├── hooks/           # Custom Hooks (Lógica de negocio y conexión a DB)
+├── integrations/    # Cliente de Supabase y configuraciones externas
+├── pages/           # Rutas principales (Index, Admin, Login)
+├── lib/             # Utilidades (cn, formats)
+└── index.css        # Estilos globales y configuración de Tailwind
 ```
+
+## 🗄️ Esquema de Base de Datos (Supabase)
+
+El proyecto utiliza las siguientes tablas en PostgreSQL:
+
+- **`projects`**: Almacena los proyectos del portafolio (título, descripción, tags, enlaces, imágenes).
+- **`testimonials`**: Guarda las reseñas de clientes o colegas (nombre, rol, texto).
+- **`contact_messages`**: Registra los mensajes enviados desde el formulario de contacto.
+
+> **Nota**: Todas las tablas están protegidas con políticas _Row Level Security (RLS)_ para asegurar que solo el administrador pueda editar la información.
+
+## 🚀 Despliegue
+
+Este proyecto está optimizado para ser desplegado en **Vercel** o **Netlify**.
+
+1. Haz fork de este repositorio.
+2. Importa el proyecto en tu plataforma de hosting preferida.
+3. Configura las **Variables de Entorno** (mencionadas arriba) en el panel de configuración del hosting.
+4. ¡Listo! Tu portafolio se actualizará automáticamente con cada push.
 
 ## 📄 Licencia
 
-Este proyecto es de uso personal y demostrativo.
+Este proyecto es de código abierto y está disponible bajo la [Licencia MIT](LICENSE). Siéntete libre de usarlo como inspiración o plantilla para tu propio portafolio.
