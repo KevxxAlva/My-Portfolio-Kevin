@@ -39,6 +39,9 @@ export const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    // Lazy load non-critical animations
+    import("@/styles/animations.css");
+
     const role = roles[currentRole];
     const timeout = setTimeout(
       () => {
