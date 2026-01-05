@@ -9,8 +9,9 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import { RequireAuth } from "./components/RequireAuth";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
-// Lazy load pages
-const Index = lazy(() => import("./pages/Index"));
+import Index from "./pages/Index";
+
+// Lazy load other pages
 const Admin = lazy(() => import("./pages/Admin"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Login = lazy(() => import("./pages/Login"));
