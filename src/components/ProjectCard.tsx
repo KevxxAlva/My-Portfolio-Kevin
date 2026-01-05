@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Star } from "lucide-react";
 import type { Project } from "@/data/projects";
+import { getOptimizedImageUrl } from "@/utils/imageOptimizer";
 
 interface ProjectCardProps {
   project: Project;
@@ -33,7 +34,7 @@ export const ProjectCard = ({ project, index, onOpenModal }: ProjectCardProps) =
       {/* Image Container */}
       <div className="relative h-52 overflow-hidden">
         <img
-          src={project.imagenUrl}
+          src={getOptimizedImageUrl(project.imagenUrl, 600)}
           alt={project.titulo}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
