@@ -23,8 +23,51 @@ export default defineConfig(({ mode }) => ({
     cssMinify: true,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
-        // Optimize CSS loading
+        // Aggressive code splitting for better caching and parallel loading
+        manualChunks: (id) => {
+          // React core - loaded first, cached long term
+          if (id.includes('node_modules/react-dom')) {
+            return 'react-dom';
+          }
+          if (id.includes('node_modules/react/') || id.includes('node_modules/scheduler')) {
+            return 'react-core';
+          }
+          
+          // Router - needed for navigation
+          if (id.includes('node_modules/react-router')) {
+            return 'router';
+          }
+          
+          // Framer Motion - heavy animation library
+          if (id.includes('node_modules/framer-motion')) {
+            return 'framer';
+          }
+          
+          // Radix UI primitives - UI components
+          if (id.includes('node_modules/@radix-ui')) {
+            return 'radix';
+          }
+          
+          // Supabase - database client
+          if (id.includes('node_modules/@supabase')) {
+            return 'supabase';
+          }
+          
+          // React Query - data fetching (only needed for admin)
+          if (id.includes('node_modules/@tanstack')) {
+            return 'query';
+          }
+          
+          // Lucide icons
+          if (id.includes('node_modules/lucide-react')) {
+            return 'icons';
+          }
+          
+          // Other vendor code
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'assets/[name]-[hash][extname]';
@@ -35,3 +78,4 @@ export default defineConfig(({ mode }) => ({
     },
   },
 }));
+

@@ -15,6 +15,8 @@ import { useToast } from "@/hooks/use-toast";
 import type { Project } from "@/data/projects";
 import type { Testimonial } from "@/data/testimonials";
 import { supabase } from "@/integrations/supabase/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RequireAuth } from "@/components/RequireAuth";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,7 +30,10 @@ import {
 
 type AdminTab = "projects" | "testimonials" | "messages";
 
-const Admin = () => {
+// Create QueryClient inside the module to avoid recreating on each render
+const queryClient = new QueryClient();
+
+const AdminContent = () => {
   const { projects, isLoaded: projectsLoaded, addProject, updateProject, deleteProject } = useProjects();
   const { testimonials, isLoaded: testimonialsLoaded, addTestimonial, updateTestimonial, deleteTestimonial } = useTestimonials();
   const { messages, isLoaded: messagesLoaded, deleteMessage } = useMessages();
@@ -357,4 +362,15 @@ const Admin = () => {
     </div>
   );
 };
+
+// Wrapper component that includes auth and query provider
+const Admin = () => (
+  <RequireAuth>
+    <QueryClientProvider client={queryClient}>
+      <AdminContent />
+    </QueryClientProvider>
+  </RequireAuth>
+);
+
 export default Admin;
+
