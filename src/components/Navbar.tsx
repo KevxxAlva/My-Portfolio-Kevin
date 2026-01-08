@@ -112,9 +112,13 @@ export const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="flex items-center gap-2 bg-primary/10 p-2 rounded-lg border border-primary/20">
-              <span className="font-bold text-xl tracking-tighter text-primary">&lt;KA /&gt;</span>
-            </div>
+            <img 
+                src="/logo.png" 
+                alt="Kevin Alvarez Logo" 
+                width={50} 
+                height={50} 
+                className="w-12 h-12 object-contain rounded-full border border-primary/20 bg-primary/10"
+              />
           </m.a>
 
           {/* Desktop Navigation */}
